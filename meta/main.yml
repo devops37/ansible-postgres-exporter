@@ -3,7 +3,7 @@ galaxy_info:
   author: jack
   role_name: postgres_exporter
   description: Prometheus Postgres Exporter
-  license: Apache License
+  license: Apache-2.0
   company: none
   min_ansible_version: 2.7
   platforms:
