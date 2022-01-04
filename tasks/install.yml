@@ -4,7 +4,7 @@
     name: "{{ _postgres_exporter_system_group }}"
     state: present
     system: true
-  when: _postgres_exporter_system_group != "root"
+  when: _postgres_exporter_system_group != "postgres"
 
 - name: Create the postgres_exporter user
   user:
@@ -15,7 +15,7 @@
     system: true
     create_home: false
     home: /
-  when: _postgres_exporter_system_user != "root"
+  when: _postgres_exporter_system_user != "postgres"
 
 - block:
     - name: Download postgres_exporter binary to local folder

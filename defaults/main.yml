@@ -9,5 +9,5 @@ postgres_exporter_data_source_name: "user=postgres host=/var/run/postgresql/ \
 
 # Internal variables.
 _postgres_exporter_binary_install_dir: "/usr/local/bin"
-_postgres_exporter_system_group: "postgres-exp"
+_postgres_exporter_system_group: "postgres"
 _postgres_exporter_system_user: "{{ _postgres_exporter_system_group }}"
