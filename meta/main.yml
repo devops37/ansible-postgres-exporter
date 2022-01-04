@@ -2,7 +2,7 @@
 galaxy_info:
   author: jack
   role_name: postgres_exporter
-  description: Prometheus Postgres Exporter
+  description: Prometheus Postgres Exporter. It is similar to node exporter ansible role
   license: Apache-2.0
   company: none
   min_ansible_version: 2.7
