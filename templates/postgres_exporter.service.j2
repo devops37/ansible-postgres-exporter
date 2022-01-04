@@ -8,7 +8,7 @@ After=network-online.target
 Type=simple
 User={{ _postgres_exporter_system_user }}
 Group={{ _postgres_exporter_system_group }}
-Environment=DATA_SOURCE_NAME="{{ postgres_exporter_data_source_name }}"
+Environment="DATA_SOURCE_NAME={{ postgres_exporter_data_source_name }}"
 ExecStart={{ _postgres_exporter_binary_install_dir }}/postgres_exporter \
 {% if postgres_exporter_extend_query_path | length > 0 %}
     --extend.query-path=/etc/postgres_exporter/queries.yml \
