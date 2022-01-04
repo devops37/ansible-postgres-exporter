@@ -4,7 +4,7 @@ postgres_exporter_binary_local_dir: ""
 postgres_exporter_web_listen_address: "0.0.0.0:9187"
 postgres_exporter_web_telemetry_path: "/metrics"
 postgres_exporter_extend_query_path: ""
-postgres_exporter_data_source_name: "user=postgres host=/var/run/postgresql/\
+postgres_exporter_data_source_name: "user=postgres host=/var/run/postgresql/ \
   sslmode=disable"
 
 # Internal variables.
