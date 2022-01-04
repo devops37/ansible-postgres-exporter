@@ -1,4 +1,6 @@
-# Ansible Role: postgres_exporter
+# Ansible Role: postgres exporter
+
+Inspired by [Ansible Role: node exporter](https://github.com/cloudalchemy/ansible-node-exporter).
 
 ## Description
 
