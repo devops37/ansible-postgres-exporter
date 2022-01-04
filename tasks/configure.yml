@@ -19,7 +19,7 @@
 
     - name: Copy the postgres_exporter query file
       copy:
-        src: queries.yml
+        src: "{{ postgres_exporter_extend_query_path }}"
         dest: /etc/postgres_exporter/queries.yml
         owner: root
         group: root
