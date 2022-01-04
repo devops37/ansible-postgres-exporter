@@ -1,0 +1,37 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus Node Exporter
+After=network-online.target
+
+[Service]
+Type=simple
+User={{ _postgres_exporter_system_user }}
+Group={{ _postgres_exporter_system_group }}
+ExecStart={{ _postgres_exporter_binary_install_dir }}/postgres_exporter \
+    --web.listen-address={{ postgres_exporter_web_listen_address }} \
+    --web.telemetry-path={{ postgres_exporter_web_telemetry_path }}
+
+SyslogIdentifier=postgres_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+
+{% for m in ansible_mounts if m.mount == '/home' %}
+ProtectHome=read-only
+{% else %}
+ProtectHome=yes
+{% endfor %}
+NoNewPrivileges=yes
+
+{% if postgres_exporter_systemd_version | int >= 232 %}
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+{% else %}
+ProtectSystem=full
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,63 @@
+---
+- name: Create the postgres_exporter group
+  group:
+    name: "{{ _postgres_exporter_system_group }}"
+    state: present
+    system: true
+  when: _postgres_exporter_system_group != "root"
+
+- name: Create the postgres_exporter user
+  user:
+    name: "{{ _postgres_exporter_system_user }}"
+    groups: "{{ _postgres_exporter_system_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+    home: /
+  when: _postgres_exporter_system_user != "root"
+
+- block:
+    - name: Download postgres_exporter binary to local folder
+      become: false
+      get_url:
+        url: "https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ postgres_exporter_version }}/postgres_exporter-{{ postgres_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+        dest: "/tmp/postgres_exporter-{{ postgres_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+        checksum: "sha256:{{ postgres_exporter_checksum }}"
+        mode: '0644'
+      register: _download_binary
+      until: _download_binary is succeeded
+      retries: 5
+      delay: 2
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Unpack postgres_exporter binary
+      become: false
+      unarchive:
+        src: "/tmp/postgres_exporter-{{ postgres_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+        dest: "/tmp"
+        creates: "/tmp/postgres_exporter-{{ postgres_exporter_version }}.linux-{{ go_arch }}/postgres_exporter"
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Propagate postgres_exporter binaries
+      copy:
+        src: "/tmp/postgres_exporter-{{ postgres_exporter_version }}.linux-{{ go_arch }}/postgres_exporter"
+        dest: "{{ _postgres_exporter_binary_install_dir }}/postgres_exporter"
+        mode: 0755
+        owner: root
+        group: root
+      notify: restart postgres_exporter
+      when: not ansible_check_mode
+  when: postgres_exporter_binary_local_dir | length == 0
+
+- name: propagate locally distributed postgres_exporter binary
+  copy:
+    src: "{{ postgres_exporter_binary_local_dir }}/postgres_exporter"
+    dest: "{{ _postgres_exporter_binary_install_dir }}/postgres_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: postgres_exporter_binary_local_dir | length > 0
+  notify: restart postgres_exporter
