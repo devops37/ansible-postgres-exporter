@@ -3,6 +3,7 @@ postgres_exporter_version: 0.10.0
 postgres_exporter_binary_local_dir: ""
 postgres_exporter_web_listen_address: "0.0.0.0:9187"
 postgres_exporter_web_telemetry_path: "/metrics"
+postgres_exporter_extend_query_path: ""
 
 # Internal variables.
 _postgres_exporter_binary_install_dir: "/usr/local/bin"

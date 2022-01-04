@@ -9,6 +9,9 @@ Type=simple
 User={{ _postgres_exporter_system_user }}
 Group={{ _postgres_exporter_system_group }}
 ExecStart={{ _postgres_exporter_binary_install_dir }}/postgres_exporter \
+{% if postgres_exporter_extend_query_path | length > 0 %}
+    --extend.query-path=/etc/postgres_exporter/queries.yaml \
+{% endif %}
     --web.listen-address={{ postgres_exporter_web_listen_address }} \
     --web.telemetry-path={{ postgres_exporter_web_telemetry_path }}
 
