@@ -2,6 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: "Include geerlingguy.postgresql"
+      include_role:
+        name: geerlingguy.postgresql
     - name: "Include ansible_postgres_exporter"
       include_role:
         name: ansible-postgres-exporter
