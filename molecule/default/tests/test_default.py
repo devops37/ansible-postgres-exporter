@@ -34,7 +34,7 @@ def test_user(host):
 def test_service(host):
     s = host.service("postgres_exporter")
     assert s.is_running
-    assert s.is_enabeld
+    assert s.is_enabled
 
 
 def test_socket(host):
