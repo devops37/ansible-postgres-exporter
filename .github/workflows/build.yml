@@ -1,0 +1,49 @@
+---
+name: build
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible ansible-lint yamllint flake8
+
+      - run: yamllint .
+      - run: ansible-lint
+      - run: flake8
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Ansible.
+        run: pip3 install ansible
+
+      - name: Install test dependencies.
+        run: pip install -r test-requirements.txt
+
+      - name: Run Molecule tests.
+        run: molecule test
