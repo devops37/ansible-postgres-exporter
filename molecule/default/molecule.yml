@@ -4,12 +4,55 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: centos7
-    image: centos/systemd
+  - name: bionic
+    pre_build_image: true
+    image: zhan9san/systemd:ubuntu-18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: "/usr/sbin/init"
+    command: "/sbin/init"
+  - name: xenial
+    pre_build_image: true
+    image: zhan9san/systemd:ubuntu-16.04
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "sbin/init"
+  - name: stretch
+    pre_build_image: true
+    image: zhan9san/systemd:debian-9
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "/sbin/init"
+  - name: buster
+    pre_build_image: true
+    image: zhan9san/systemd:debian-10
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "/sbin/init"
+  - name: centos-7
+    pre_build_image: true
+    image: zhan9san/systemd:centos-7
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "/usr/lib/systemd/systemd"
+  - name: centos-8
+    pre_build_image: true
+    image: zhan9san/systemd:centos-8
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "/usr/lib/systemd/systemd"
+  - name: fedora
+    pre_build_image: true
+    image: zhan9san/systemd:fedora-30
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: "/usr/lib/systemd/systemd"
 provisioner:
   name: ansible
   playbooks:
