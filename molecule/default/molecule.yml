@@ -4,28 +4,28 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: bionic
+  - name: ubuntu-18.04
     pre_build_image: true
     image: zhan9san/systemd:ubuntu-18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: "/sbin/init"
-  - name: xenial
+  - name: ubuntu-16.04
     pre_build_image: true
     image: zhan9san/systemd:ubuntu-16.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: "sbin/init"
-  - name: stretch
+  - name: debian-9
     pre_build_image: true
     image: zhan9san/systemd:debian-9
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: "/sbin/init"
-  - name: buster
+  - name: debian-10
     pre_build_image: true
     image: zhan9san/systemd:debian-10
     privileged: true
