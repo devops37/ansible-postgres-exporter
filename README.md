@@ -1,5 +1,9 @@
 # Ansible Role: postgres exporter
 
+[![CI](https://github.com/zhan9san/ansible-postgres-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/zhan9san/ansible-postgres-exporter/actions/workflows/ci.yml)
+[![Ansible Rolea](https://img.shields.io/badge/ansible%20role-zhan9san.postgres_exporter-blue.svg)](https://galaxy.ansible.com/zhan9san/postgres_exporter/)
+[![GitHub tag](https://img.shields.io/github/tag/zhan9san/ansible-postgres-exporter.svg)](https://github.com/zhan9san/ansible-postgres-exporter/tags)
+
 Inspired by [Ansible Role: node exporter](https://github.com/cloudalchemy/ansible-node-exporter).
 
 ## Description
